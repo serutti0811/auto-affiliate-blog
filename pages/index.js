@@ -1,23 +1,25 @@
+// pages/index.js
 import fs from 'fs'
 import path from 'path'
 import Link from 'next/link'
-import styles from '../styles/Home.module.css'
 
 export async function getStaticProps() {
+  // content フォルダから全 Markdown ファイル名を取得
   const files = fs.readdirSync(path.join(process.cwd(), 'content'))
-  const slugs = files.map(f => f.replace(/\.md$/, ''))
+  // 拡張子 .md を取り除いてスラッグを生成
+  const slugs = files.map((f) => f.replace(/\.md$/, ''))
   return { props: { slugs } }
 }
 
 export default function Home({ slugs }) {
   return (
-    <main className={styles.container}>
-      <h1 className={styles.title}>My Auto Affiliate Blog</h1>
-      <ul className={styles.list}>
-        {slugs.map(slug => (
-          <li key={slug} className={styles.listItem}>
-            <Link href={`/posts/${slug}`}>
-              <a className={styles.link}>{slug}</a>
+    <main className="container py-5">
+      <h1 className="mb-4">My Auto Affiliate Blog</h1>
+      <ul className="list-group">
+        {slugs.map((slug) => (
+          <li key={slug} className="list-group-item">
+            <Link href={`/posts/${slug}`} passHref>
+              <a className="text-decoration-none">{slug}</a>
             </Link>
           </li>
         ))}
