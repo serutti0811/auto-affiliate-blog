@@ -1,12 +1,12 @@
- {
-   "name": "auto-affiliate-blog",
-   "version": "1.0.0",
-   "type": "module",
-   "dependencies": {
-     "openai": "^4.0.0",
-     "csv-parse": "^5.0.0",
-+    "gray-matter": "^4.0.3",
-+    "remark": "^14.0.2",
-+    "remark-html": "^15.0.1"
-   }
- }
+{
+  "name": "auto-affiliate-blog",
+  "version": "1.0.0",
+  "type": "module",
+  "dependencies": {
+    "openai": "^4.0.0",
+    "csv-parse": "^5.0.0",
+    "gray-matter": "^4.0.3",
+    "remark": "^14.0.2",
+    "remark-html": "^15.0.1"
+  }
+}
