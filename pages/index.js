@@ -1,6 +1,7 @@
-// pages/index.js
 import fs from 'fs'
 import path from 'path'
+import Link from 'next/link'
+import styles from '../styles/Home.module.css'
 
 export async function getStaticProps() {
   const files = fs.readdirSync(path.join(process.cwd(), 'content'))
@@ -10,12 +11,14 @@ export async function getStaticProps() {
 
 export default function Home({ slugs }) {
   return (
-    <main style={{ padding: 20, fontFamily: 'sans-serif' }}>
-      <h1>My Auto Affiliate Blog</h1>
-      <ul>
+    <main className={styles.container}>
+      <h1 className={styles.title}>My Auto Affiliate Blog</h1>
+      <ul className={styles.list}>
         {slugs.map(slug => (
-          <li key={slug}>
-            <a href={`/posts/${slug}`}>{slug}</a>
+          <li key={slug} className={styles.listItem}>
+            <Link href={`/posts/${slug}`}>
+              <a className={styles.link}>{slug}</a>
+            </Link>
           </li>
         ))}
       </ul>
