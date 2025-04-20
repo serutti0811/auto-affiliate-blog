@@ -1,16 +1,40 @@
- jobs:
-   generate:
-     runs-on: ubuntu-latest
-     steps:
-       - uses: actions/checkout@v3
+name: Auto Article Pipeline
 
--      - name: Set up Node
--        uses: actions/setup-node@v3
--      with: node-version: '18'
-+      - name: Set up Node
-+        uses: actions/setup-node@v3
-+        with:
-+          node-version: '18'
+# ← ここは必ず先頭（インデント無し）で on: を書く
+on:
+  workflow_dispatch:        # ← これを追加！
+  schedule:
+    - cron: '0 2 * * *'
+  push:
+    paths:
+      - 'keywords.csv'
 
-       - name: Install deps
-         run: npm install openai csv-parse
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install deps
+        run: npm install openai csv-parse
+
+      - name: Run generate.js
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          mkdir -p content
+          node generate.js
+
+      - name: Commit articles
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add content/*.md
+          git commit -m "Auto-generate articles" || echo "No changes"
+          git push
