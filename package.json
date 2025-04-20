@@ -1,0 +1,9 @@
+{
+  "name": "auto-affiliate-blog",
+  "version": "1.0.0",
+  "type": "module",
+  "dependencies": {
+    "openai": "^4.0.0",
+    "csv-parse": "^5.0.0"
+  }
+}
