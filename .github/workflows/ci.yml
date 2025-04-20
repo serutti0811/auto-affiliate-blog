@@ -1,5 +1,9 @@
 name: Auto Article Pipeline
 
+# ここを追加：actions の書き込み権限を許可
+permissions:
+  contents: write
+
 # ← ここは必ず先頭（インデント無し）で on: を書く
 on:
   workflow_dispatch:        # ← これを追加！
